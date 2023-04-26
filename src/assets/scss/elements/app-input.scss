@@ -1,0 +1,27 @@
+.app-input {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+
+  &__label {
+    color: $white;
+  }
+
+  &__input {
+    width: 100%;
+    margin: 10px auto 0;
+    padding: 14px 0;
+    background: none;
+    color: $white;
+    border: 1px solid $blue;
+    border-radius: 24px;
+    text-align: center;
+    transition: 0.25s;
+  }
+
+  &__message {
+    color: $red;
+    margin: 5px 0;
+    font-size: 14px;
+  }
+}

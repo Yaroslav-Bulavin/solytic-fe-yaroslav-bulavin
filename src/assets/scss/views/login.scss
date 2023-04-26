@@ -1,0 +1,19 @@
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 82px);
+
+  &__inner {
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+    background-color: $bg-dark;
+  }
+
+  &__title {
+    color: $white;
+    font-weight: 500;
+    margin: 10px;
+  }
+}
