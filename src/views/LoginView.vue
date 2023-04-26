@@ -8,10 +8,10 @@
           @submit="onSubmit"
         >
           <AppInput
-            name="name"
+            name="username"
             type="text"
-            label="Full Name"
-            placeholder="Your Name"
+            label="Username"
+            placeholder="Your user email"
           />
 
           <AppPasswordInput
@@ -20,55 +20,39 @@
             placeholder="Your password"
           />
 
-          <AppButton type="submit" :disabled="!isValid">Submit</AppButton>
+          <AppButton type="submit" :disabled="isDisabled">Submit</AppButton>
         </form>
       </div>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { Form, useForm } from 'vee-validate';
+<script setup lang="ts">
+import {
+  useIsFormDirty, useIsFormValid, useForm,
+} from 'vee-validate';
 import * as Yup from 'yup';
-
 import AppInput from '@/elements/AppInput.vue';
-import AppButton from '@/elements/AppButton.vue';
 import AppPasswordInput from '@/elements/AppPasswordInput.vue';
-import { computed, ref } from 'vue';
+import AppButton from '@/elements/AppButton.vue';
+import { computed } from 'vue';
 
-export default {
-  components: {
-    AppInput,
-    AppButton,
-    AppPasswordInput,
-  },
-  async setup() {
-    const validationErrors = ref({});
-    const schema = Yup.object().shape({
-      name: Yup.string().required('Name is a required field').min(2),
-      password: Yup.string().required('Password is a required field').min(8).max(20),
-    });
+const schema = Yup.object().shape({
+  username: Yup.string().email().required(),
+  password: Yup.string().min(6).required(),
+});
 
-    const { validate, handleSubmit } = useForm({
-      validationSchema: schema,
-    });
+const { handleSubmit } = useForm({
+  validationSchema: schema,
+});
 
-    const { errors } = await validate();
+const onSubmit = handleSubmit((values: any) => {
+  console.log(values);
+});
 
-    validationErrors.value = errors;
+const isDirty = useIsFormDirty();
+const isValid = useIsFormValid();
 
-    const isValid = computed(() => !!Object.keys(validationErrors).length);
-
-    console.log(isValid);
-
-    console.log(errors);
-
-    const onSubmit = handleSubmit((values: any) => {
-      console.log(values);
-    });
-
-    return { onSubmit, isValid };
-  },
-};
+const isDisabled = computed(() => !isDirty.value || !isValid.value);
 
 </script>

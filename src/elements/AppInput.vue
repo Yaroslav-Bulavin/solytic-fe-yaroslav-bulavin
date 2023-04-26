@@ -50,7 +50,7 @@ const props = defineProps({
 });
 
 const name = toRef(props, 'name');
-const value = toRef(props, 'value');
+// const value = toRef(props, 'value');
 
 const {
   value: inputValue,
@@ -59,7 +59,7 @@ const {
   handleChange,
   meta,
 } = useField(name, undefined, {
-  initialValue: value,
+  initialValue: props.value,
 });
 
 console.log(inputValue);
