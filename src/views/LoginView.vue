@@ -4,9 +4,7 @@
       <div class="login__inner">
         <h1 class="login__title">Login</h1>
 
-        <form
-          @submit="onSubmit"
-        >
+        <form @submit="onSubmit">
           <AppInput
             name="username"
             type="text"
@@ -36,6 +34,8 @@ import AppInput from '@/elements/AppInput.vue';
 import AppPasswordInput from '@/elements/AppPasswordInput.vue';
 import AppButton from '@/elements/AppButton.vue';
 import { computed } from 'vue';
+import { useMutation } from '@vue/apollo-composable';
+import { LOGIN_USER } from '@/api/mutations';
 
 const schema = Yup.object().shape({
   username: Yup.string().email().required(),
@@ -46,8 +46,20 @@ const { handleSubmit } = useForm({
   validationSchema: schema,
 });
 
-const onSubmit = handleSubmit((values: any) => {
-  console.log(values);
+const { mutate: loginUser } = await useMutation(LOGIN_USER);
+
+const onSubmit = handleSubmit(async (values: any) => {
+  const { username, password } = values;
+
+  try {
+    const res = await loginUser({
+      email: username,
+      password,
+    });
+    console.log('res', res);
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 const isDirty = useIsFormDirty();

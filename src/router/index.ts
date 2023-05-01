@@ -20,4 +20,11 @@ const router = createRouter({
   routes,
 });
 
+router.beforeEach(async (to, from, next) => {
+  const isLoggedIn = !!(sessionStorage.getItem('userId') && JSON.parse(sessionStorage.getItem('jwt') as string).token);
+
+  if (to.name !== 'login' && !isLoggedIn) next({ name: 'login' });
+  else next();
+});
+
 export default router;

@@ -1,0 +1,11 @@
+.details {
+  @extend .login;
+
+  &__inner {
+    @extend .login__inner;
+  }
+
+  &__text {
+    color: $white;
+  }
+}
