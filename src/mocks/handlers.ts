@@ -1,8 +1,8 @@
 import { graphql } from 'msw';
 import { db } from '@/mocks/db';
 
-const apiToken = '51195a5f-6fb7-415b';
-const apiTokenType = 'Bearer';
+const apiToken = process.env.VUE_APP_TOKEN;
+const apiTokenType = process.env.VUE_APP_TOKEN_TYPE;
 
 export const handlers = [
   // Handles a "Login" mutation
@@ -23,7 +23,7 @@ export const handlers = [
     return res(
       ctx.data({
         user: {
-          id: matchedUser.id,
+          id: matchedUser?.id,
         },
         accessToken,
       }),

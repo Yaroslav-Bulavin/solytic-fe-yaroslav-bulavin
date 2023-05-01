@@ -11,12 +11,11 @@ export type AppButtonProps = {
   type?: 'button' | 'reset' | 'submit';
   disabled?: boolean;
 }
+
 const props = withDefaults(defineProps<AppButtonProps>(), {
   type: 'button',
   disabled: false,
 });
 
 const disabled = toRef(props, 'disabled');
-
-console.log(disabled);
 </script>

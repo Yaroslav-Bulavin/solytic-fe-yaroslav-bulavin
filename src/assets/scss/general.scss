@@ -11,3 +11,7 @@
   justify-content: start;
   align-items: center;
 }
+
+.has-error {
+  border-color: $red !important;
+}

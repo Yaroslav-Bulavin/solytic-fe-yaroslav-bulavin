@@ -1,13 +1,11 @@
 <template>
-  <div
-    class="app-password-input"
-    :class="{ 'has-error': !!errorMessage, success: meta.valid }"
-  >
+  <div class="app-password-input">
     <label class='app-password-input__label' :for="name">{{ label }}</label>
 
     <div class="app-password-input__container">
       <input
         class="app-password-input__input"
+        :class="{ 'has-error': !!errorMessage }"
         :name="name"
         :id="name"
         :type="isShow ? 'text' : 'password'"
@@ -35,35 +33,23 @@
 import { toRef, defineProps, ref } from 'vue';
 import { useField } from 'vee-validate';
 
-const props = defineProps({
-  value: {
-    type: String,
-    default: '',
-  },
-  name: {
-    type: String,
-    required: true,
-  },
-  label: {
-    type: String,
-    required: true,
-  },
-  placeholder: {
-    type: String,
-    default: '',
-  },
-});
+export type AppPasswordInputProps = {
+  value?: string;
+  name: string;
+  label: string;
+  placeholder: string;
+}
+
+const props = defineProps<AppPasswordInputProps>();
 
 const isShow = ref(false);
 const name = toRef(props, 'name');
-// const value = toRef(props, 'value');
 
 const {
   value: inputValue,
   errorMessage,
   handleBlur,
   handleChange,
-  meta,
 } = useField(name, undefined, {
   initialValue: props.value,
 });

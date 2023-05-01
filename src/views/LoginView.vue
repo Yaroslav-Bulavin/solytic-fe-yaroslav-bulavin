@@ -29,26 +29,21 @@
 import {
   useIsFormDirty, useIsFormValid, useForm,
 } from 'vee-validate';
-import * as Yup from 'yup';
 import AppInput from '@/elements/AppInput.vue';
 import AppPasswordInput from '@/elements/AppPasswordInput.vue';
 import AppButton from '@/elements/AppButton.vue';
 import { computed } from 'vue';
 import { useMutation } from '@vue/apollo-composable';
 import { LOGIN_USER } from '@/api/mutations';
-
-const schema = Yup.object().shape({
-  username: Yup.string().email().required(),
-  password: Yup.string().min(6).required(),
-});
+import { LOGIN_SCHEMA } from '@/schema/login.schema';
 
 const { handleSubmit } = useForm({
-  validationSchema: schema,
+  validationSchema: LOGIN_SCHEMA,
 });
 
-const { mutate: loginUser } = await useMutation(LOGIN_USER);
+const { mutate: loginUser } = useMutation(LOGIN_USER);
 
-const onSubmit = handleSubmit(async (values: any) => {
+const onSubmit = handleSubmit(async (values) => {
   const { username, password } = values;
 
   try {
@@ -56,9 +51,11 @@ const onSubmit = handleSubmit(async (values: any) => {
       email: username,
       password,
     });
-    console.log('res', res);
+    // eslint-disable-next-line no-alert
+    alert(`Success! User ID: ${res?.data.user.id}`);
   } catch (e) {
-    console.log(e);
+    // eslint-disable-next-line no-alert
+    alert('Oops! User does not exist');
   }
 });
 
