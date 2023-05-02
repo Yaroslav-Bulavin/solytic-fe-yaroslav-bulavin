@@ -1,5 +1,5 @@
 <template>
-  <button class="app-button" :disabled="disabled">
+  <button class="app-button" :type="type" :disabled="disabled">
     <slot/>
   </button>
 </template>
@@ -16,6 +16,4 @@ const props = withDefaults(defineProps<AppButtonProps>(), {
   type: 'button',
   disabled: false,
 });
-
-const disabled = toRef(props, 'disabled');
 </script>

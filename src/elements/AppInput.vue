@@ -25,7 +25,7 @@ import { toRef, defineProps, withDefaults } from 'vue';
 import { useField } from 'vee-validate';
 
 export type AppInputProps = {
-  type: string;
+  type?: HTMLInputElement['type'];
   value?: string;
   name: string;
   label: string;

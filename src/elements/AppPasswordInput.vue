@@ -36,8 +36,8 @@ import { useField } from 'vee-validate';
 export type AppPasswordInputProps = {
   value?: string;
   name: string;
-  label: string;
-  placeholder: string;
+  label?: string;
+  placeholder?: string;
 }
 
 const props = defineProps<AppPasswordInputProps>();
