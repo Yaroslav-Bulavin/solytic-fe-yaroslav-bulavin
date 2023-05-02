@@ -1,5 +1,10 @@
 # vue-3-auth
 
+## You need to use Node v16.15.1
+
+## You can test login with these users:
+1. username: user@name.com, password: passwd
+2. username: zpbull1@gmail.com, password: 123456
 ## Project setup
 ```
 npm install
